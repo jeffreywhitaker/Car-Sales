@@ -22,31 +22,37 @@ export const mainReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FEATURE:
       console.log('ADD_FEATURE was called');
+      const updatedFeatures = [
+        ...state.car.features
+      ]
+      if (state.car.features.findIndex((feature) => {return feature.id === action.payload.id}) === -1) {
+        updatedFeatures.push(action.payload)
+      }
       return {
         ...state,
+        additionalPrice: updatedFeatures.reduce((acc, feature) => {return acc + feature.price}, 0),
         car: {
           ...state.car,
-          features: [
-            ...state.car.features,
-            action.payload
-          ]
+          features: updatedFeatures
         }
       };
-      case REMOVE_FEATURE:
-        console.log('REMOVE_FEATURE was called');
-        return {
-          ...state,
-          car: {
-            ...state.car,
-            features: state.car.features.filter(
-              (feature) => {
-                if (feature.id === action.payload) {
-                    return false
-                } else return true
-              }
-            )
-          }
+    case REMOVE_FEATURE:
+      console.log('REMOVE_FEATURE was called');
+      const updatedFeatures2 = state.car.features.filter(
+        (feature) => {
+          if (feature.id === action.payload) {
+              return false
+          } else return true
         }
+      )
+      return {
+        ...state,
+        additionalPrice: updatedFeatures2.reduce((acc, feature) => {return acc + feature.price}, 0),
+        car: {
+          ...state.car,
+          features: updatedFeatures2
+        }
+      }
     default:
       return state;
   }
