@@ -2,9 +2,6 @@ import React from 'react';
 
 
 const AdditionalFeature = props => {
-  const removeFeature = item => {
-    // dispatch an action here to remove an item
-  };
 
   const buyItem = e => {
     console.log('bought item!');

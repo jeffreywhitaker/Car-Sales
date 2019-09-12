@@ -17,7 +17,7 @@ const App = () => {
         <Total />
       </div>
     </div>
-  );
+  );     
 };
 
 export default App;
